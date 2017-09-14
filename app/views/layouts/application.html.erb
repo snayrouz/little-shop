@@ -10,7 +10,7 @@
 
   <body>
     <% flash.each do |name, msg| %>
-    <div class="alert alert-success" role="alert"">
+    <div class="alert alert-success" role="alert">
      <%= content_tag :div, raw(msg), class: name %></div>
   <% end %>
     <%= yield %>
