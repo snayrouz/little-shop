@@ -1,11 +1,26 @@
-<h1>Your Cart</h1>
-
-<% @items.each do |item| %>
-  <%= image_tag(item.image) %>
-  <%= item.title %>
-  <%= item.description %>
-  <%= item.price %>
-  <%= link_to "Remove", cart_path(item), method: :delete %>
-<% end %>
-
-<p>Total Cart Price:<%= @cart.cart_total %></p>  
+<div class="jumbrotron">
+  <div class="container-fluid">
+    <h1>Your Cart</h1>
+<table class="table table-striped text-left table-bordered">
+  <thead>
+    <tr>
+     <th><h3>Image</h3></th>
+     <th><h3>Item</h3></th>
+      <th><h3>Description</h3></th>
+      <th><h3>Price</h3></th>
+      </tr>
+    </thead>
+    <tbody>
+<tr><% @items.each do |item| %></tr>
+      <td><img class="img-thumbnail" <%= image_tag item.image %></td>
+      <td><%= item.title %></td>
+      <td><%= item.description %></td>
+      <td><%= item.price %></td>
+    <td><%= link_to "Remove", cart_path(item), method: :delete %></td>
+      <% end %>
+    </tr>
+  </tbody>
+</table>
+    <p>Total Cart Price:<%= @cart.cart_total %></p>
+</div>
+</div>
