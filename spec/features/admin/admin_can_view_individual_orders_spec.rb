@@ -1,11 +1,9 @@
 require 'rails_helper'
 
-RSpec.describe "User can see past order" do
-  context "they have multiple orders" do
-    it "and can see them when visiting the orders page" do
-      user_1 = User.create(first_name: "Bon", last_name: "Jovi", address: "123 crazy street", email: "deadoralive@awesome.com", username: "bonjovirules", password: "deadoralive")
-
-      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user_1)
+RSpec.describe "As an admin" do
+  describe "I visit the order show page" do
+    it "I see it's attributes" do
+      user = User.create(first_name: "Bon", last_name: "Jovi", address: "123 crazy street", email: "deadoralive@awesome.com", username: "bonjovirules", password: "deadoralive", role: "admin")
 
       category_1 = Category.create(name: "scuba")
       category_2 = Category.create(name: "basket")
@@ -21,19 +19,24 @@ RSpec.describe "User can see past order" do
       ItemCategory.create(item_id: item_4, category_id: category_2)
 
       order_1 = Order.create(user_id: 1, status: 1, total_price: 154.85)
-      order_2 = Order.create(user_id: 1, status: 1, total_price: 149.89)
 
       OrderItem.create(order_id: order_1, item_id: item_1, quantity: 3)
       OrderItem.create(order_id: order_1, item_id: item_3, quantity: 1)
-      OrderItem.create(order_id: order_2, item_id: item_2, quantity: 2)
-      OrderItem.create(order_id: order_2, item_id: item_4, quantity: 1)
 
-      visit "/orders"
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
 
-      expect(current_path).to eq("/orders")
-      expect(page).to have_content("Past Orders")
-      expect(page).to have_content("Order 1")
-      expect(page).to have_content("Order 2")
+      visit admin_dashboard_path
+
+      click_on "Order_1"
+
+      expect(current_path).to eq(not sure yet)
+      expect(page).to have_link("Mask")
+      expect(page).to have_content("3")
+      expect(page).to have_content("$49.95")
+      expect(page).to have_content("$149.85")
+      expect(page).to have_content("Ordered")
+      expect(page).to have_content("219.80")
     end
   end
 end
+      
